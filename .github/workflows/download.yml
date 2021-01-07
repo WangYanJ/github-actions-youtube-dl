@@ -29,10 +29,28 @@ jobs:
           git commit -m "download youtube video"
           git push
 
-      - name: Start SSH via tmate
-        uses: VPN-V2Ray/ssh2githubactions@main
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          
-          
+      - name: Organize files 
+        run: |
+             tar -czf Downloads.tar.gz downloads/
+
+      - name: Upload firmware to WeTransfer 
+        #if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
+        if: always()
+        run: |
+          curl -fsSL git.io/file-transfer | sh
+          ./transfer wet -s -p 16 --no-progress Downloads.tar.gz 2>&1 | tee wetransfer.log
+          echo "::warning 🌏 file=wetransfer.com::$(cat wetransfer.log | grep https)"
+        
+
+      - name: Organize files 
+        run: |
+             git rm -fr --cached downloads/*.mp4
+             git commit -m 'del' 
+             git push -u origin
+             
+      #- name: Start SSH via tmate
+      #  uses: VPN-V2Ray/ssh2githubactions@main
+      #  env:
+      #    TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      #    TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
