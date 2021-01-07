@@ -45,7 +45,7 @@ jobs:
       - name: Organize files 
         run: |
              git rm -fr --cached downloads/*.mp4
-             cat /dev/null > playlist.txt
+             echo "">playlist.txt
              #git rm -f playlist.txt
              #git add playlist.txt
              echo test > playlist.txt
