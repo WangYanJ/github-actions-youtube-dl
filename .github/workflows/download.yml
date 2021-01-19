@@ -24,7 +24,11 @@ jobs:
           git config --local user.name "迷渡"
           git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git pull --rebase
+          git lfs install
+
           ./bin/youtube-dl  -f best --config-location config.txt
+          git lfs track "downloads/*.*"
+          git add .gitattributes
           git add .
           git commit -m "download youtube video"
           git push
