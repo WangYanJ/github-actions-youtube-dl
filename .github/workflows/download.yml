@@ -46,6 +46,8 @@ jobs:
         run: |
              tar -czf Downloads.tar.gz downloads/
              mv Downloads.tar.gz  Downloads_$(date +'%Y%m%d%H%M').tar.gz
+             ls -lh
+             df
 
       - name: Upload firmware to WeTransfer 
         #if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
