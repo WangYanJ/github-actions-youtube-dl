@@ -26,7 +26,10 @@ jobs:
           git pull --rebase
           git lfs install
 
-          ./bin/youtube-dl  -f best --config-location config.txt
+          ./bin/youtube-dl  -f 313+140 --config-location config.txt
+
+          #./bin/youtube-dl  -f best --config-location config.txt
+          #./bin/youtube-dl  -f best --config-location config.txt
           git lfs track "downloads/*.*"
           git add .gitattributes
           git add .
