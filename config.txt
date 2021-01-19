@@ -1,3 +1,4 @@
+#-f bestvideo+bestaudio/best
 --batch-file playlist.txt
 --output downloads/%(title)s_%(id)s.%(ext)s
 --continue
@@ -7,3 +8,8 @@
 
 # --external-downloader bin/aria2c
 # --external-downloader-args '-c -x 16 -k 1M'
+
+##--proxy "socks5://127.0.0.1:1080/" #在配置中指定了代理
+##-o "d:/youtube-dl-videos/%(title)s - %(resolution)s.%(ext)s" #存放的路径、及文件名格式、视频分辨率
+##-f bestvideo+bestaudio/best #不同的清晰度供选择，-f 参数可以指定视频质量，best代表单文件最好质量的视频
+##--no-playlist #表示不下载播放列表，默认设置下，如果给youtube-dl一个播放列表的链接，它会下载列表
