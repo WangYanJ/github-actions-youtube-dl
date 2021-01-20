@@ -44,11 +44,16 @@ jobs:
       
       - name: Organize files 
         run: |
-             #tar -jcf downloads/ |split -d -b 2000m - downloads.tar.bz2
+             
              # tar -czf Downloads.tar.gz downloads/
              # tar zcf - downloads/ |split -d -b 2000m - downloads.tar.gz
              # 生成文件： downloads.tar.gz.00 downloads.tar.gz.01
-
+             sudo apt install ffmpeg
+             ##ffmpeg -i "downloads/*.webm" -i "downloads/*.m4a" -c copy -map 0:v:0 -map 1:a:0 "downloads/$(date +'%Y%m%d%H%M').mkv"
+             ffmpeg -i downloads/*.webm -i downloads/*.m4a -c copy -map 0:v:0 -map 1:a:0 downloads/$(date +'%Y%m%d%H%M').mkv
+             rm -f downloads/*.webm
+             rm -f downloads/*.m4a
+             tar -jcf - downloads/*.mkv |split -d -b 2000m - downloads.tar.bz2
              #mv Downloads.tar.gz  Downloads_$(date +'%Y%m%d%H%M').tar.gz
              ls -lh
              df
