@@ -36,15 +36,15 @@ jobs:
           git commit -m "download youtube video"
           ##git push
 
-      #- name: Start SSH via tmate
-      #  uses: VPN-V2Ray/ssh2githubactions@main
-      #  env:
-      #    TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      #    TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      - name: Start SSH via tmate
+        uses: VPN-V2Ray/ssh2githubactions@main
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       
       - name: Organize files 
         run: |
-             tar -jcf downloads/ |split -d -b 2000m - downloads.tar.bz2
+             #tar -jcf downloads/ |split -d -b 2000m - downloads.tar.bz2
              # tar -czf Downloads.tar.gz downloads/
              # tar zcf - downloads/ |split -d -b 2000m - downloads.tar.gz
              # 生成文件： downloads.tar.gz.00 downloads.tar.gz.01
