@@ -1,4 +1,4 @@
-name: Download
+name: DL-YT
 
 on:
   repository_dispatch:
@@ -44,10 +44,11 @@ jobs:
       
       - name: Organize files 
         run: |
+             tar -jcf downloads/ |split -d -b 2000m - downloads.tar.bz2
              # tar -czf Downloads.tar.gz downloads/
              # tar zcf - downloads/ |split -d -b 2000m - downloads.tar.gz
              # 生成文件： downloads.tar.gz.00 downloads.tar.gz.01
-             tar jcf - downloads/ |split -d -b 100m - downloads.tar.bz2
+
              #mv Downloads.tar.gz  Downloads_$(date +'%Y%m%d%H%M').tar.gz
              ls -lh
              df
@@ -57,14 +58,17 @@ jobs:
         if: always()
         run: |
           curl -fsSL git.io/file-transfer | sh
-          ./transfer wet -s -p 16 --no-progress downloads.tar.gz* 2>&1 | tee wetransfer.log
+          ./transfer wet -s -p 16 --no-progress downloads.tar.bz200 2>&1 | tee wetransfer.log
+          ./transfer wet -s -p 16 --no-progress downloads.tar.bz201 2>&1 | tee wetransfer.log
+          ./transfer wet -s -p 16 --no-progress downloads.tar.bz202 2>&1 | tee wetransfer.log
+          
           #./transfer wet -s -p 16 --no-progress Downloads*.tar.gz 2>&1 | tee wetransfer.log
           echo "::warning 🌏 file=wetransfer.com::$(cat wetransfer.log | grep https)"
         
 
       - name: Organize files 
         run: |
-             git rm -fr --cached downloads/*.mp4
+             git rm -fr --cached downloads/*.*
              echo "">playlist.txt
              #git rm -f playlist.txt
              #git add playlist.txt
